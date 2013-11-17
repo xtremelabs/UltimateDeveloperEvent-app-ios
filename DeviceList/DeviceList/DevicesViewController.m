@@ -56,9 +56,12 @@
 }
 
 - (void)fetchDevices {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Device"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"deviceID" ascending:NO]];
-    NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [NSFetchRequest
+                                    fetchRequestWithEntityName:Device.entityName];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor
+                                      sortDescriptorWithKey:DeviceAttributes.deviceID ascending:NO]];
+    NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate
+                                       managedObjectContext];
     [context performBlockAndWait:^{
         self.devices = [context executeFetchRequest:fetchRequest error:nil];
     }];

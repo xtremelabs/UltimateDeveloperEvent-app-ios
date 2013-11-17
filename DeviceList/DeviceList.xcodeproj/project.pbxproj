@@ -27,7 +27,8 @@
 		613047E818395FC5000CCB3B /* DeviceListClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 613047E718395FC5000CCB3B /* DeviceListClient.m */; };
 		613047EA18396E68000CCB3B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 613047E918396E68000CCB3B /* CoreData.framework */; };
 		61304837183971AA000CCB3B /* DeviceList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61304835183971AA000CCB3B /* DeviceList.xcdatamodeld */; };
-		6130483A18397430000CCB3B /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 6130483918397430000CCB3B /* Device.m */; };
+		6130484218398751000CCB3B /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 6130483E18398751000CCB3B /* Device.m */; };
+		6130484318398751000CCB3B /* _Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 6130484118398751000CCB3B /* _Device.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,8 +69,10 @@
 		613047E718395FC5000CCB3B /* DeviceListClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListClient.m; sourceTree = "<group>"; };
 		613047E918396E68000CCB3B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		61304836183971AA000CCB3B /* DeviceList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DeviceList.xcdatamodel; sourceTree = "<group>"; };
-		6130483818397430000CCB3B /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
-		6130483918397430000CCB3B /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
+		6130483D18398751000CCB3B /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		6130483E18398751000CCB3B /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
+		6130484018398751000CCB3B /* _Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Device.h; sourceTree = "<group>"; };
+		6130484118398751000CCB3B /* _Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Device.m; sourceTree = "<group>"; };
 		88875D4685F74FC4B2CD91FE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CF418A126DF342238241A0D8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -136,6 +139,7 @@
 		613047B118394D70000CCB3B /* DeviceList */ = {
 			isa = PBXGroup;
 			children = (
+				6130483C18398751000CCB3B /* Models */,
 				613047BA18394D70000CCB3B /* AppDelegate.h */,
 				613047BB18394D70000CCB3B /* AppDelegate.m */,
 				613047BD18394D70000CCB3B /* Main.storyboard */,
@@ -150,8 +154,6 @@
 				613047E618395FC5000CCB3B /* DeviceListClient.h */,
 				613047E718395FC5000CCB3B /* DeviceListClient.m */,
 				61304835183971AA000CCB3B /* DeviceList.xcdatamodeld */,
-				6130483818397430000CCB3B /* Device.h */,
-				6130483918397430000CCB3B /* Device.m */,
 			);
 			path = DeviceList;
 			sourceTree = "<group>";
@@ -185,6 +187,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6130483C18398751000CCB3B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6130483D18398751000CCB3B /* Device.h */,
+				6130483E18398751000CCB3B /* Device.m */,
+				6130483F18398751000CCB3B /* Generated */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6130483F18398751000CCB3B /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				6130484018398751000CCB3B /* _Device.h */,
+				6130484118398751000CCB3B /* _Device.m */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -193,6 +214,7 @@
 			buildConfigurationList = 613047DD18394D70000CCB3B /* Build configuration list for PBXNativeTarget "DeviceList" */;
 			buildPhases = (
 				D3E4CF401861417D929FDAA3 /* Check Pods Manifest.lock */,
+				6130483B1839836E000CCB3B /* Run Script */,
 				613047A418394D70000CCB3B /* Sources */,
 				613047A518394D70000CCB3B /* Frameworks */,
 				613047A618394D70000CCB3B /* Resources */,
@@ -280,6 +302,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6130483B1839836E000CCB3B /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Update the mogenerator files\ncd ${SOURCE_ROOT}/${PROJECT_NAME}\n/usr/local/bin/mogenerator --template-var arc=true -m ${PROJECT_NAME}.xcdatamodeld/${PROJECT_NAME}.xcdatamodel -M Models/Generated -H Models/";
+		};
 		91597E0B64AE4BE48A8372E3 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,7 +356,8 @@
 				613047C518394D70000CCB3B /* SecondViewController.m in Sources */,
 				613047BC18394D70000CCB3B /* AppDelegate.m in Sources */,
 				613047E818395FC5000CCB3B /* DeviceListClient.m in Sources */,
-				6130483A18397430000CCB3B /* Device.m in Sources */,
+				6130484318398751000CCB3B /* _Device.m in Sources */,
+				6130484218398751000CCB3B /* Device.m in Sources */,
 				613047C218394D70000CCB3B /* FirstViewController.m in Sources */,
 				613047E518395918000CCB3B /* DevicesViewController.m in Sources */,
 				61304837183971AA000CCB3B /* DeviceList.xcdatamodeld in Sources */,
