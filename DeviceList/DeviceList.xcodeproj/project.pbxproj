@@ -25,6 +25,9 @@
 		613047DA18394D70000CCB3B /* DeviceListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 613047D918394D70000CCB3B /* DeviceListTests.m */; };
 		613047E518395918000CCB3B /* DevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 613047E418395918000CCB3B /* DevicesViewController.m */; };
 		613047E818395FC5000CCB3B /* DeviceListClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 613047E718395FC5000CCB3B /* DeviceListClient.m */; };
+		613047EA18396E68000CCB3B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 613047E918396E68000CCB3B /* CoreData.framework */; };
+		61304837183971AA000CCB3B /* DeviceList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61304835183971AA000CCB3B /* DeviceList.xcdatamodeld */; };
+		6130483A18397430000CCB3B /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 6130483918397430000CCB3B /* Device.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,10 @@
 		613047E418395918000CCB3B /* DevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicesViewController.m; sourceTree = "<group>"; };
 		613047E618395FC5000CCB3B /* DeviceListClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceListClient.h; sourceTree = "<group>"; };
 		613047E718395FC5000CCB3B /* DeviceListClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListClient.m; sourceTree = "<group>"; };
+		613047E918396E68000CCB3B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		61304836183971AA000CCB3B /* DeviceList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DeviceList.xcdatamodel; sourceTree = "<group>"; };
+		6130483818397430000CCB3B /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		6130483918397430000CCB3B /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
 		88875D4685F74FC4B2CD91FE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CF418A126DF342238241A0D8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -72,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				613047EA18396E68000CCB3B /* CoreData.framework in Frameworks */,
 				613047AE18394D70000CCB3B /* CoreGraphics.framework in Frameworks */,
 				613047B018394D70000CCB3B /* UIKit.framework in Frameworks */,
 				613047AC18394D70000CCB3B /* Foundation.framework in Frameworks */,
@@ -115,6 +123,7 @@
 		613047AA18394D70000CCB3B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				613047E918396E68000CCB3B /* CoreData.framework */,
 				613047AB18394D70000CCB3B /* Foundation.framework */,
 				613047AD18394D70000CCB3B /* CoreGraphics.framework */,
 				613047AF18394D70000CCB3B /* UIKit.framework */,
@@ -140,6 +149,9 @@
 				613047E418395918000CCB3B /* DevicesViewController.m */,
 				613047E618395FC5000CCB3B /* DeviceListClient.h */,
 				613047E718395FC5000CCB3B /* DeviceListClient.m */,
+				61304835183971AA000CCB3B /* DeviceList.xcdatamodeld */,
+				6130483818397430000CCB3B /* Device.h */,
+				6130483918397430000CCB3B /* Device.m */,
 			);
 			path = DeviceList;
 			sourceTree = "<group>";
@@ -308,8 +320,10 @@
 				613047C518394D70000CCB3B /* SecondViewController.m in Sources */,
 				613047BC18394D70000CCB3B /* AppDelegate.m in Sources */,
 				613047E818395FC5000CCB3B /* DeviceListClient.m in Sources */,
+				6130483A18397430000CCB3B /* Device.m in Sources */,
 				613047C218394D70000CCB3B /* FirstViewController.m in Sources */,
 				613047E518395918000CCB3B /* DevicesViewController.m in Sources */,
+				61304837183971AA000CCB3B /* DeviceList.xcdatamodeld in Sources */,
 				613047B818394D70000CCB3B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +547,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		61304835183971AA000CCB3B /* DeviceList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				61304836183971AA000CCB3B /* DeviceList.xcdatamodel */,
+			);
+			currentVersion = 61304836183971AA000CCB3B /* DeviceList.xcdatamodel */;
+			path = DeviceList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 613047A018394D70000CCB3B /* Project object */;
 }

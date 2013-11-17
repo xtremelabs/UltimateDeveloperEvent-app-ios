@@ -8,6 +8,8 @@
 
 #import "DevicesViewController.h"
 #import "DeviceListClient.h"
+#import "AppDelegate.h"
+#import "Device.h"
 
 @interface DevicesViewController ()
 
@@ -32,18 +34,33 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.devices = [NSArray new];
     
-    [[DeviceListClient sharedClient] getPath:@"device"
-                                  parameters:nil
-                                     success:^(AFHTTPRequestOperation *operation, NSArray *JSONArray) {
-        self.devices = JSONArray;
+    [self fetchDevices];
+    if (self.devices.count > 0) {
         [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Request Failed"
-                                                            message:@"Request Failed"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+        
+    } else {
+        [Device deviceListWithBlock:^(NSError *error) {
+            if (error) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Request Failed"
+                          message:@"Request Failed"
+                         delegate:nil
+                cancelButtonTitle:@"OK"
+                otherButtonTitles:nil];
+                [alertView show];
+            } else {
+                [self fetchDevices];
+                [self.tableView reloadData];
+            }
+        }];
+    }
+}
+
+- (void)fetchDevices {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Device"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"deviceID" ascending:NO]];
+    NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+    [context performBlockAndWait:^{
+        self.devices = [context executeFetchRequest:fetchRequest error:nil];
     }];
 }
 
@@ -69,14 +86,15 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell"];
+    Device *device = self.devices[indexPath.row];
     UILabel *nameLabel = [cell viewWithTag:1];
-    [nameLabel setText:self.devices[indexPath.row][@"name"]];
+    [nameLabel setText:device.name];
     
     UILabel *osLabel = [cell viewWithTag:2];
-    [osLabel setText:self.devices[indexPath.row][@"operatingSystem"]];
+    [osLabel setText:device.operatingSystem];
     
     UILabel *versionLabel = [cell viewWithTag:3];
-    [versionLabel setText:self.devices[indexPath.row][@"version"]];
+    [versionLabel setText:device.version];
     
     return cell;
 }
