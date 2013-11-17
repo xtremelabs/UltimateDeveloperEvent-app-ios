@@ -24,6 +24,7 @@
 		613047D818394D70000CCB3B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 613047D618394D70000CCB3B /* InfoPlist.strings */; };
 		613047DA18394D70000CCB3B /* DeviceListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 613047D918394D70000CCB3B /* DeviceListTests.m */; };
 		613047E518395918000CCB3B /* DevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 613047E418395918000CCB3B /* DevicesViewController.m */; };
+		613047E818395FC5000CCB3B /* DeviceListClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 613047E718395FC5000CCB3B /* DeviceListClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		613047D918394D70000CCB3B /* DeviceListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListTests.m; sourceTree = "<group>"; };
 		613047E318395918000CCB3B /* DevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesViewController.h; sourceTree = "<group>"; };
 		613047E418395918000CCB3B /* DevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevicesViewController.m; sourceTree = "<group>"; };
+		613047E618395FC5000CCB3B /* DeviceListClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceListClient.h; sourceTree = "<group>"; };
+		613047E718395FC5000CCB3B /* DeviceListClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListClient.m; sourceTree = "<group>"; };
 		88875D4685F74FC4B2CD91FE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CF418A126DF342238241A0D8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -135,6 +138,8 @@
 				613047B218394D70000CCB3B /* Supporting Files */,
 				613047E318395918000CCB3B /* DevicesViewController.h */,
 				613047E418395918000CCB3B /* DevicesViewController.m */,
+				613047E618395FC5000CCB3B /* DeviceListClient.h */,
+				613047E718395FC5000CCB3B /* DeviceListClient.m */,
 			);
 			path = DeviceList;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 			files = (
 				613047C518394D70000CCB3B /* SecondViewController.m in Sources */,
 				613047BC18394D70000CCB3B /* AppDelegate.m in Sources */,
+				613047E818395FC5000CCB3B /* DeviceListClient.m in Sources */,
 				613047C218394D70000CCB3B /* FirstViewController.m in Sources */,
 				613047E518395918000CCB3B /* DevicesViewController.m in Sources */,
 				613047B818394D70000CCB3B /* main.m in Sources */,

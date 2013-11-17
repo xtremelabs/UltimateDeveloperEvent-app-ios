@@ -7,8 +7,11 @@
 //
 
 #import "DevicesViewController.h"
+#import "DeviceListClient.h"
 
 @interface DevicesViewController ()
+
+@property (nonatomic) NSArray *devices;
 
 @end
 
@@ -26,12 +29,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.devices = [NSArray new];
+    
+    [[DeviceListClient sharedClient] getPath:@"device"
+                                  parameters:nil
+                                     success:^(AFHTTPRequestOperation *operation, NSArray *JSONArray) {
+        self.devices = JSONArray;
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Request Failed"
+                                                            message:@"Request Failed"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,24 +57,26 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return self.devices.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell"];
+    UILabel *nameLabel = [cell viewWithTag:1];
+    [nameLabel setText:self.devices[indexPath.row][@"name"]];
     
-    // Configure the cell...
+    UILabel *osLabel = [cell viewWithTag:2];
+    [osLabel setText:self.devices[indexPath.row][@"operatingSystem"]];
+    
+    UILabel *versionLabel = [cell viewWithTag:3];
+    [versionLabel setText:self.devices[indexPath.row][@"version"]];
     
     return cell;
 }
