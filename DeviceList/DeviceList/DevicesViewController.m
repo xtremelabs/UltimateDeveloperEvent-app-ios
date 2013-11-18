@@ -7,6 +7,7 @@
 //
 
 #import "DevicesViewController.h"
+#import "DeviceViewController.h"
 #import "DeviceListClient.h"
 #import "AppDelegate.h"
 #import "Device.h"
@@ -53,6 +54,10 @@
             }
         }];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.tableView reloadData];
 }
 
 - (void)fetchDevices {
@@ -139,17 +144,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     return YES;
 }
 */
-
-/*
+ 
 #pragma mark - Navigation
 
-// In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue destinationViewController] isKindOfClass:[DeviceViewController class]] &&
+        [sender isKindOfClass:[UITableViewCell class]])
+    {
+        DeviceViewController *vc = [segue destinationViewController];
+        UITableViewCell *cell = sender;
+        vc.device = self.devices[[self.tableView indexPathForCell:cell].row];
+    }
 }
-
- */
 
 @end

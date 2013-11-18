@@ -6,4 +6,6 @@
 
 + (void)deleteDevice:(Device *)device withBlock:(void (^)(NSError *error))block;
 
++ (void)modifyDevice:(Device *)device withBlock:(void (^)(NSError *error))block;
+
 @end

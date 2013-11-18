@@ -29,6 +29,7 @@
 		61304837183971AA000CCB3B /* DeviceList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61304835183971AA000CCB3B /* DeviceList.xcdatamodeld */; };
 		6130484218398751000CCB3B /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 6130483E18398751000CCB3B /* Device.m */; };
 		6130484318398751000CCB3B /* _Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 6130484118398751000CCB3B /* _Device.m */; };
+		613048461839A352000CCB3B /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 613048451839A352000CCB3B /* DeviceViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		6130483E18398751000CCB3B /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
 		6130484018398751000CCB3B /* _Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Device.h; sourceTree = "<group>"; };
 		6130484118398751000CCB3B /* _Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Device.m; sourceTree = "<group>"; };
+		613048441839A352000CCB3B /* DeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceViewController.h; sourceTree = "<group>"; };
+		613048451839A352000CCB3B /* DeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewController.m; sourceTree = "<group>"; };
 		88875D4685F74FC4B2CD91FE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CF418A126DF342238241A0D8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -147,6 +150,8 @@
 				613047C118394D70000CCB3B /* FirstViewController.m */,
 				613047C318394D70000CCB3B /* SecondViewController.h */,
 				613047C418394D70000CCB3B /* SecondViewController.m */,
+				613048441839A352000CCB3B /* DeviceViewController.h */,
+				613048451839A352000CCB3B /* DeviceViewController.m */,
 				613047C618394D70000CCB3B /* Images.xcassets */,
 				613047B218394D70000CCB3B /* Supporting Files */,
 				613047E318395918000CCB3B /* DevicesViewController.h */,
@@ -357,6 +362,7 @@
 				613047BC18394D70000CCB3B /* AppDelegate.m in Sources */,
 				613047E818395FC5000CCB3B /* DeviceListClient.m in Sources */,
 				6130484318398751000CCB3B /* _Device.m in Sources */,
+				613048461839A352000CCB3B /* DeviceViewController.m in Sources */,
 				6130484218398751000CCB3B /* Device.m in Sources */,
 				613047C218394D70000CCB3B /* FirstViewController.m in Sources */,
 				613047E518395918000CCB3B /* DevicesViewController.m in Sources */,

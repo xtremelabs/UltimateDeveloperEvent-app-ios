@@ -63,4 +63,26 @@
     }];
 }
 
++ (void)modifyDevice:(Device *)device withBlock:(void (^)(NSError *error))block {
+    [[DeviceListClient sharedClient] putPath:[NSString stringWithFormat:@"%@/%@", @"device", device.deviceID]
+                                  parameters:@{DeviceAttributes.name : device.name,
+                                               DeviceAttributes.version : device.version,
+                                               DeviceAttributes.operatingSystem : device.operatingSystem}
+       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+           [context performBlock:^{
+               NSError *error;
+               [context save:&error];
+               if (block) {
+                   block(error);
+               }
+           }];
+           
+       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           if (block) {
+               block(error);
+           }
+       }];
+}
+
 @end
