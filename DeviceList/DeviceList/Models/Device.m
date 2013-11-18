@@ -42,4 +42,25 @@
                                      }];
 }
 
++ (void)deleteDevice:(Device *)device withBlock:(void (^)(NSError *error))block {
+    [[DeviceListClient sharedClient] deletePath:[NSString stringWithFormat:@"%@/%@", @"device", device.deviceID]
+    parameters:nil
+    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+        [context performBlock:^{
+            NSError *error;
+            [context deleteObject:device];
+            [context save:&error];
+            if (block) {
+                block(error);
+            }
+        }];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(error);
+        }
+    }];
+}
+
 @end
