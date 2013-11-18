@@ -8,4 +8,6 @@
 
 + (void)modifyDevice:(Device *)device withBlock:(void (^)(NSError *error))block;
 
++ (void)insertDevice:(Device *)device withBlock:(void (^)(NSError *error))block;
+
 @end

@@ -85,4 +85,26 @@
        }];
 }
 
++ (void)insertDevice:(Device *)device withBlock:(void (^)(NSError *error))block {
+    [[DeviceListClient sharedClient] postPath:@"device"
+    parameters:@{DeviceAttributes.name : device.name,
+                 DeviceAttributes.version : device.version,
+                 DeviceAttributes.operatingSystem : device.operatingSystem}
+       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+           [context performBlock:^{
+               NSError *error;
+               [context save:&error];
+               if (block) {
+                   block(error);
+               }
+           }];
+           
+       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           if (block) {
+               block(error);
+           }
+       }];
+}
+
 @end

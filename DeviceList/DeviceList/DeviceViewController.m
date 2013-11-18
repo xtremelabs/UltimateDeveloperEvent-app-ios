@@ -7,6 +7,7 @@
 //
 
 #import "DeviceViewController.h"
+#import "AppDelegate.h"
 
 @interface DeviceViewController ()
 
@@ -33,18 +34,35 @@
 }
 
 - (IBAction)saveButtonClicked:(id)sender {
+    if (self.device) {
+        [self populateDeviceObject];
+        [Device modifyDevice:self.device withBlock:^(NSError *error) {
+            if (!error) {
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self.indicatorView removeFromSuperview];
+            }
+        }];
+    } else {
+        NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+        self.device = [Device insertInManagedObjectContext:context];
+        [self populateDeviceObject];
+        [Device insertDevice:self.device withBlock:^(NSError *error) {
+            if (!error) {
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self.indicatorView removeFromSuperview];
+            }
+        }];
+    }
+}
+
+- (void)populateDeviceObject {
     self.device.name = self.nameTextField.text;
     self.device.operatingSystem = self.operatingSystemTextField.text;
     self.device.version = self.versionTextField.text;
     self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [self.view addSubview:self.indicatorView];
-    [Device modifyDevice:self.device withBlock:^(NSError *error) {
-        if (!error) {
-            [self.navigationController popViewControllerAnimated:YES];
-        } else {
-            [self.indicatorView removeFromSuperview];
-        }
-    }];
 }
 
 @end
