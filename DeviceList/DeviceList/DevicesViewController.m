@@ -12,67 +12,37 @@
 #import "AppDelegate.h"
 #import "Device.h"
 
-@interface DevicesViewController ()
+@interface DevicesViewController () <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic) NSArray *devices;
+@property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation DevicesViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.devices = [NSArray new];
-    
-    [self fetchDevices];
-    if (self.devices.count > 0) {
-        [self.tableView reloadData];
-        
-    } else {
-        [Device deviceListWithBlock:^(NSError *error) {
-            if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Request Failed"
-                          message:@"Request Failed"
-                         delegate:nil
-                cancelButtonTitle:@"OK"
-                otherButtonTitles:nil];
-                [alertView show];
-            } else {
-                [self fetchDevices];
-                [self.tableView reloadData];
-            }
-        }];
-    }
+    NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
 
-- (void)fetchDevices {
+- (NSFetchRequest *)fetchRequest {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:Device.entityName];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:DeviceAttributes.deviceID ascending:NO]];
-    NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
-    [context performBlockAndWait:^{
-        self.devices = [context executeFetchRequest:fetchRequest error:nil];
-    }];
+    return fetchRequest;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+    return context;
 }
 
 #pragma mark - Table view data source
@@ -84,14 +54,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.devices.count;
+    return self.fetchedResultsController.fetchedObjects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell"];
-    Device *device = self.devices[indexPath.row];
+    Device *device = [self.fetchedResultsController objectAtIndexPath:indexPath];
     UILabel *nameLabel = [cell viewWithTag:1];
     [nameLabel setText:device.name];
     
@@ -104,47 +74,19 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [Device deleteDevice:self.devices[indexPath.row]
-                   withBlock:^(NSError *error) {
-            if (!error) {
-                [self fetchDevices];
-                [tableView deleteRowsAtIndexPaths:@[indexPath]
-                                 withRowAnimation:UITableViewRowAnimationFade];
-            }
+        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [self.managedObjectContext performBlock:^{
+            [self.managedObjectContext delete:managedObject];
+            [self.managedObjectContext save:nil];
         }];
-    }   
+    }
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
- 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -154,8 +96,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     {
         DeviceViewController *vc = [segue destinationViewController];
         UITableViewCell *cell = sender;
-        vc.device = self.devices[[self.tableView indexPathForCell:cell].row];
+        vc.device = self.fetchedResultsController.fetchedObjects[[self.tableView indexPathForCell:cell].row];
     }
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView reloadData];
 }
 
 @end

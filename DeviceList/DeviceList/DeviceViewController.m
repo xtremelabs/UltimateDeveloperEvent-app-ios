@@ -33,28 +33,21 @@
     }
 }
 
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
+    return context;
+}
+
+
 - (IBAction)saveButtonClicked:(id)sender {
-    if (self.device) {
-        [self populateDeviceObject];
-        [Device modifyDevice:self.device withBlock:^(NSError *error) {
-            if (!error) {
-                [self.navigationController popViewControllerAnimated:YES];
-            } else {
-                [self.indicatorView removeFromSuperview];
-            }
-        }];
-    } else {
-        NSManagedObjectContext *context = [(AppDelegate *)UIApplication.sharedApplication.delegate managedObjectContext];
-        self.device = [Device insertInManagedObjectContext:context];
-        [self populateDeviceObject];
-        [Device insertDevice:self.device withBlock:^(NSError *error) {
-            if (!error) {
-                [self.navigationController popViewControllerAnimated:YES];
-            } else {
-                [self.indicatorView removeFromSuperview];
-            }
-        }];
+    if (!self.device) {
+        self.device = [Device insertInManagedObjectContext:self.managedObjectContext];
     }
+    [self populateDeviceObject];
+    [self.managedObjectContext performBlock:^{
+        [self.managedObjectContext save:nil];
+    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)populateDeviceObject {
